@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<div class="class1 class2"></div>
+    <script type="text/javascript">
+        var a = function () {
+            this.p1 = 1;
+            this.fn1 = function () {
+               return this.p1;
+            }
+            this.callFn = function () {
+                var b = new B(this.fn1);
+                b.doFn.apply(this,[]);
+            }
+        }
+
+        var B = function (fn) {
+            this.p1 = 2;
+            this.doFn = function () {
+                console.log(fn.apply(this,arguments));
+            }
+        };
+        (function (obj) {
+            obj.callFn();
+        }(new a()))
+    </script>
+
+<script type="text/javascript">
+    var c = function () {
+        this.p1 = 1;
+        this.fn1 = function () {
+            return this.p1;
+        }
+        this.callFn = function () {
+            var d = new D(this.fn1);
+            d.doFn();
+        }
+    }
+
+    var D = function (fn) {
+        this.p1 = 2;
+        this.doFn = function () {
+            console.log(fn.apply(this,arguments));
+        }
+    };
+    (function (obj) {
+        obj.callFn();
+    }(new c()))
+</script>
+</body>
+</html>
